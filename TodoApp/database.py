@@ -12,10 +12,18 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 # ===========================postgresql database connection==========================
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:1bigone@localhost:5432/TodoApplicationDatabase"
+# SQLALCHEMY_DATABASE_URL = "postgresql://postgres:1bigone@localhost:5432/TodoApplicationDatabase"
+
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
+# ===========================postgresql database connection==========================
+
+
+# ===========================MySql database connection==========================
+SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:1bigone@localhost:3306/todoapp"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
-# ===========================postgresql database connection==========================
+# ===========================MySql database connection==========================
+
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
