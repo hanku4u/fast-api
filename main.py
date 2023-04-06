@@ -1,7 +1,12 @@
 from fastapi import FastAPI, Depends
 import models                                   # import models from models.py
 from database import engine                     # import engine from database.py
-from routers import auth, todos, users          # import auth and todos router from routers folder
+from routers import (                           # import routers from routers folder
+            auth,
+            todos,
+            users,
+            address
+            )
 from company import companyapis, dependencies   # import companyapis router from company folder
 
 # Creating an instance of the FastAPI application
@@ -14,6 +19,7 @@ models.Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
 app.include_router(todos.router)
 app.include_router(users.router)
+app.include_router(address.router)
 app.include_router(
     companyapis.router,
     prefix="/companyapis",
