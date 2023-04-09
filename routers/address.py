@@ -2,12 +2,12 @@ import sys
 sys.path.append('..')
 
 from typing import Optional
-from fastapi import Depends, APIRouter
+from fastapi import Depends, APIRouter, HTTPException
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from .auth import get_current_user, get_user_exception
+from .auth import get_current_user
 
 
 
@@ -39,7 +39,7 @@ class Address(BaseModel):
 @router.post("/")
 async def get_address(address: Address, user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
     if user is None:
-        raise get_user_exception()
+        raise HTTPException(status_code=404, detail="Not found")
     
     address_model = models.Address()
     address_model.address1 = address.address1

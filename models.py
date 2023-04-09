@@ -17,6 +17,7 @@ class User(Base):
     todos = relationship('Todos', back_populates='owner')
     address = relationship('Address', back_populates='user_address')
 
+
 class Todos(Base):
     __tablename__ = 'todos'
     id = Column(Integer, primary_key=True, index=True)

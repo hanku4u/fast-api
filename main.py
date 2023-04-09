@@ -1,18 +1,26 @@
 from fastapi import FastAPI, Depends
-import models                                   # import models from models.py
-from database import engine                     # import engine from database.py
-from routers import (                           # import routers from routers folder
-            auth,
-            todos,
-            users,
-            address
-            )
+import models
+from database import engine
+from starlette.staticfiles import StaticFiles
+from starlette.responses import RedirectResponse
+from starlette import status
+from routers import auth, todos, users, address
+
 
 # Creating an instance of the FastAPI application
 app = FastAPI()
 
 # Creating the database tables based on the models
 models.Base.metadata.create_all(bind=engine)
+
+# Mounting the static files folder to the application
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+# Adding a redirect to the root of the application
+@app.get("/")
+async def root():
+    return RedirectResponse(url='/todos', status_code=status.HTTP_302_FOUND)
 
 # adding the routers to the application for auth, todos, and users
 app.include_router(auth.router)
