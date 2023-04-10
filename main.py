@@ -16,8 +16,7 @@ models.Base.metadata.create_all(bind=engine)
 # Mounting the static files folder to the application
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-# Adding a redirect to the root of the application
+# Adding a redirect to the root of the application. anything going to the root will be redirected to /todos
 @app.get("/")
 async def root():
     return RedirectResponse(url='/todos', status_code=status.HTTP_302_FOUND)
