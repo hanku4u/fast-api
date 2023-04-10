@@ -118,7 +118,7 @@ async def login_for_access_token(response: Response, form_data: OAuth2PasswordRe
         expires_delta=token_expires
         )
     
-    response.set_cookie(key="access_token", value=token, httponly=True)
+    response.set_cookie(key="access_token", value=token, max_age=1800 ,httponly=True)
     
     return True
 
