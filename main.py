@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi.responses import FileResponse
 import models
 from database import engine
 from starlette.staticfiles import StaticFiles
@@ -9,6 +10,13 @@ from routers import auth, todos, users, address
 
 # Creating an instance of the FastAPI application
 app = FastAPI()
+
+# set favicon
+favicon_path = 'favicon.png'
+
+@app.get('/favicon.ico', include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
 
 # Creating the database tables based on the models
 models.Base.metadata.create_all(bind=engine)
